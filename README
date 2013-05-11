@@ -4,14 +4,15 @@ Sugar.
 It has a very simple REST API (with JSON) designed by @tch:
 
 Manipulate journal entries
-1. POST /entries (new entry)
-2. POST /entries/:entry_id (update an existing entry)
-3. GET /entries/:entry_id (fetch an existing entry)
-4. DEL /entries/:entry_id (delete an existing entry)
+1. GET /entries/ (list entries)
+2. POST /entries/ (new entry)
+3. POST /entries/:entry_id (update an existing entry)
+4. GET /entries/:entry_id (fetch an existing entry)
+5. DEL /entries/:entry_id (delete an existing entry)
 
 Manipulate comments associate with a journal entry
-1. POST /entries/:entry_id/comments (new comment for that entry)
-2. GET /entries/:entry_id/comments (comments for that entry)
+1. GET /entries/:entry_id/comments/ (comments for that entry)
+2. POST /entries/:entry_id/comments/ (new comment for that entry)
 3. DEL /entries/:entry_id/comments/:comment_id (delete an existing comment)
 
 Manipulate your friends lists
