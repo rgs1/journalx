@@ -1,0 +1,15 @@
+journalx is a Web Service used to share Journal Entries from
+Sugar.
+
+It has a very simple REST API (with JSON) designed by @tch:
+
+1. POST /entries (post a new entry)
+2. POST /entries/:entry_id (replace an existing entry)
+3. GET /entries/:entry_id (get an existing entry)
+4. DEL /entries/:entry_id (delete an existing entry)
+5. POST /entries/:entry_id/comment (post a new comment)
+6. GET /entries/:entry_id/comments (get comment list)
+7. DEL /comments/:comment_id (delete an existing comment)
+8. GET /friends  (friends list)
+9. GET /friends/:friend_id  (friend details)
+10. GET /friends/:friend_id/entries (friend entries) 
