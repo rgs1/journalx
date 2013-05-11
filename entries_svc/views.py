@@ -36,8 +36,20 @@ def entry(request, entry_id):
     if request.method == 'DELETE':
         e.delete()
         return HttpResponse('Entry deleted')
-    else:
-        return HttpResponse(json.dumps(e.to_dict()))
+    elif request.method == 'POST':
+        if 'title' in request.REQUEST:
+            e.title = request.REQUEST['title']
+        if 'desc' in request.REQUEST:
+            e.desc = request.REQUEST['desc']
+
+        form = EntryForm(request.POST, request.FILES)
+        if form.is_valid():
+            if 'screenshot' in form.cleaned_data:
+                e.screenshot = form.cleaned_data['screenshot']
+
+        e.save()
+
+    return HttpResponse(json.dumps(e.to_dict()))
 
 def screenshot(request, entry_id):
     try:

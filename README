@@ -73,3 +73,11 @@ You can use the admin module to add/delete entries:
 4) Delete an entry:
 
   curl -X DELETE http://localhost:8000/entries/1
+
+5) Update an entry:
+
+  curl \
+   -F  screenshot=@/tmp/tincho-reloaded.jpg \
+   -F title='my update entry' \
+   -F desc='something new' \
+     http://localhost:8000/entries/2
