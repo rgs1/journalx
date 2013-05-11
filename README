@@ -82,3 +82,15 @@ You can use the admin module to add/delete entries:
    -F title='my update entry' \
    -F desc='something new' \
      http://localhost:8000/entries/2
+
+6) Get comments for an entry:
+
+  curl http://localhost:8000/entries/1
+
+7) Add a comment to an entry:
+
+  curl -X POST -F text=hola http://localhost:8000/entries/2/comments/
+
+8) Delete a comment from an entr:
+
+  curl -X DELETE http://localhost:8000/entries/2/comments/1

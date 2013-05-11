@@ -20,3 +20,13 @@ class JournalEntry(models.Model):
         e['screenshot'] = '/entries/%d/screenshot' % (self.id)
         e['shared_date'] = str(self.shared_date)
         return e
+
+class Comment(models.Model):
+    entry = models.ForeignKey(JournalEntry)
+    text = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.text
+
+    def to_dict(self):
+        return model_to_dict(self)
