@@ -20,7 +20,8 @@ def index(request):
             e.save()
             return HttpResponse(json.dumps(e.to_dict()))
         else:
-            return HttpResponseBadRequest('Bad params')
+            response = {'error': 'Bad params'}
+            return HttpResponseBadRequest(json.dumps(response))
     else:
         entries = [e.to_dict() for e in JournalEntry.objects.all()]
         return HttpResponse(json.dumps(entries))
@@ -31,11 +32,13 @@ def entry(request, entry_id):
     try:
         e = JournalEntry.objects.get(id=entry_id)
     except ObjectDoesNotExist:
-        return HttpResponseNotFound('Not found')
+        response = {'error': 'Entry not found'}
+        return HttpResponseBadRequest(json.dumps(response))
 
     if request.method == 'DELETE':
         e.delete()
-        return HttpResponse('Entry deleted')
+        response = {'message': 'Entry deleted'}
+        return HttpResponseBadRequest(json.dumps(response))
     elif request.method == 'POST':
         if 'title' in request.REQUEST:
             e.title = request.REQUEST['title']
@@ -57,4 +60,5 @@ def screenshot(request, entry_id):
         fh = open(e.screenshot.path, 'rb')
         return HttpResponse(fh, mimetype="image/jpg")
     except ObjectDoesNotExist:
-        return HttpResponseNotFound('Not found')
+        response = {'error': 'Entry not found'}
+        return HttpResponseBadRequest(json.dumps(response))
