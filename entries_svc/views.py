@@ -25,12 +25,19 @@ def index(request):
         entries = [e.to_dict() for e in JournalEntry.objects.all()]
         return HttpResponse(json.dumps(entries))
 
+@csrf_exempt
 def entry(request, entry_id):
+    e = None
     try:
         e = JournalEntry.objects.get(id=entry_id)
-        return HttpResponse(json.dumps(e.to_dict()))
     except ObjectDoesNotExist:
         return HttpResponseNotFound('Not found')
+
+    if request.method == 'DELETE':
+        e.delete()
+        return HttpResponse('Entry deleted')
+    else:
+        return HttpResponse(json.dumps(e.to_dict()))
 
 def screenshot(request, entry_id):
     try:

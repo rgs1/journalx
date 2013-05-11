@@ -43,10 +43,7 @@ Steps:
 
    ./manage.py runserver
 
-6) request entries:
-
-   curl http://localhost:8000/entries
-
+== Admin module ==
 You can use the admin module to add/delete entries:
 
 1) create an admin via:
@@ -55,10 +52,24 @@ You can use the admin module to add/delete entries:
 
 2) log into http://localhost:8000/admin
 
-To try creating an entry by hand:
+== Testing the API with Curl ==
 
- curl \
+1) request entries:
+
+   curl http://localhost:8000/entries
+
+2) Create an entry:
+
+  curl \
    -F  screenshot=@/tmp/tincho.jpg \
    -F title='my entry' \
    -F desc='something' \
      http://localhost:8000/entries/
+
+3) Get an entry:
+
+  curl http://localhost:8000/entries/1
+
+4) Delete an entry:
+
+  curl -X DELETE http://localhost:8000/entries/1
