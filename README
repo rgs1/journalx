@@ -12,4 +12,40 @@ It has a very simple REST API (with JSON) designed by @tch:
 7. DEL /comments/:comment_id (delete an existing comment)
 8. GET /friends  (friends list)
 9. GET /friends/:friend_id  (friend details)
-10. GET /friends/:friend_id/entries (friend entries) 
+10. GET /friends/:friend_id/entries (friend entries)
+
+
+== Running the service ==
+
+What you'll need (in Fedora):
+
+* python-django (tested with version 1.4)
+* MySQL-python
+
+Steps:
+
+1) create the journalx db (i.e.: create database journalx)
+2) update the DB config in journalx/settings.py
+3) run:
+
+   ./manage.py syncdb
+
+4) see if tests pass:
+
+   ./manage.py test entries_svc
+
+5) run the server:
+
+   ./manage.py runserver
+
+6) request entries:
+
+   curl http://localhost:8000/entries
+
+You can use the admin module to add/delete entries:
+
+1) create an admin via:
+
+   ./manage.py createsuperuser --username=foo
+
+2) log into http://localhost:8000/admin
