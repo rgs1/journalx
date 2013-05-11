@@ -9,7 +9,7 @@ Manipulate journal entries
 3. GET /entries/:entry_id (fetch an existing entry)
 4. DEL /entries/:entry_id (delete an existing entry)
 
-Manipulate commentes associate with a journal entry
+Manipulate comments associate with a journal entry
 1. POST /entries/:entry_id/comments (new comment for that entry)
 2. GET /entries/:entry_id/comments (comments for that entry)
 3. DEL /entries/:entry_id/comments/:comment_id (delete an existing comment)
