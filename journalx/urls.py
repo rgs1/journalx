@@ -6,5 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^entries/$', 'entries_svc.views.index'),
+    url(r'^entries/(\d+)$', 'entries_svc.views.entry'),
+    url(r'^entries/(\d+)/screenshot$', 'entries_svc.views.screenshot'),
     url(r'^admin/', include(admin.site.urls)),
 )

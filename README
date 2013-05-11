@@ -20,6 +20,7 @@ It has a very simple REST API (with JSON) designed by @tch:
 What you'll need (in Fedora):
 
 * python-django (tested with version 1.4)
+* python-imaging (for uploaded screenshots)
 * MySQL-python
 
 Steps:
@@ -49,3 +50,11 @@ You can use the admin module to add/delete entries:
    ./manage.py createsuperuser --username=foo
 
 2) log into http://localhost:8000/admin
+
+To try creating an entry by hand:
+
+ curl \
+   -F  screenshot=@/tmp/tincho.jpg \
+   -F title='my entry' \
+   -F desc='something' \
+     http://localhost:8000/entries/
