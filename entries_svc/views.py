@@ -38,7 +38,7 @@ def entry(request, entry_id):
     if request.method == 'DELETE':
         e.delete()
         response = {'message': 'Entry deleted'}
-        return HttpResponseBadRequest(json.dumps(response))
+        return HttpResponse(json.dumps(response))
     elif request.method == 'POST':
         if 'title' in request.REQUEST:
             e.title = request.REQUEST['title']
