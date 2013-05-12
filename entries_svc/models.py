@@ -29,4 +29,7 @@ class Comment(models.Model):
         return self.text
 
     def to_dict(self):
-        return model_to_dict(self)
+        e = model_to_dict(self)
+        e['entry_id'] = e['entry']
+        e.pop('entry')
+        return e
