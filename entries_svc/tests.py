@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from models import JournalEntry
+from models import JournalEntry, JournalUser
 import json
 
 class SimpleTest(TestCase):
@@ -11,11 +11,13 @@ class SimpleTest(TestCase):
         expected_serialized_entry = {
             'title': 'test1',
             'desc': 'desc1',
+            'owner': 1,
             }
         expected_reloaded = json.loads(json.dumps(expected_serialized_entry))
 
-        e = JournalEntry(title='test1',
-                         desc='desc1')
+        u = JournalUser.objects.create(sugar_id='tch')
+        e = u.journalentry_set.create(title='test1',
+                                      desc='desc1')
         e.save()
         e_as_dict = e.to_dict()
 

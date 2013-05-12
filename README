@@ -54,14 +54,16 @@ You can use the admin module to add/delete entries:
 2) log into http://localhost:8000/admin
 
 == Testing the API with Curl ==
+Authentication happens through the X-Sugar-Buddy HTTP header.
 
 1) request entries:
 
-   curl http://localhost:8000/entries
+   curl -H 'X-Sugar-Buddy: walter' http://localhost:8000/entries
 
 2) Create an entry:
 
   curl \
+   -H 'X-Sugar-Buddy: walter' \
    -F  screenshot=@/tmp/tincho.jpg \
    -F title='my entry' \
    -F desc='something' \
@@ -69,15 +71,21 @@ You can use the admin module to add/delete entries:
 
 3) Get an entry:
 
-  curl http://localhost:8000/entries/1
+  curl \
+   -H 'X-Sugar-Buddy: walter' \
+   http://localhost:8000/entries/1
 
 4) Delete an entry:
 
-  curl -X DELETE http://localhost:8000/entries/1
+  curl \
+   -H 'X-Sugar-Buddy: walter' \
+   -X DELETE \
+   http://localhost:8000/entries/1
 
 5) Update an entry:
 
   curl \
+   -H 'X-Sugar-Buddy: walter' \
    -F  screenshot=@/tmp/tincho-reloaded.jpg \
    -F title='my update entry' \
    -F desc='something new' \
@@ -85,12 +93,21 @@ You can use the admin module to add/delete entries:
 
 6) Get comments for an entry:
 
-  curl http://localhost:8000/entries/1
+  curl \
+   -H 'X-Sugar-Buddy: walter' \
+   http://localhost:8000/entries/1
 
 7) Add a comment to an entry:
 
-  curl -X POST -F text=hola http://localhost:8000/entries/2/comments/
+  curl \
+    -H 'X-Sugar-Buddy: walter' \
+    -X POST \
+    -F text=hola \
+    http://localhost:8000/entries/2/comments/
 
 8) Delete a comment from an entr:
 
-  curl -X DELETE http://localhost:8000/entries/2/comments/1
+  curl \
+    -H 'X-Sugar-Buddy: walter' \
+    -X DELETE \
+    http://localhost:8000/entries/2/comments/1

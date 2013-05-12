@@ -2,7 +2,14 @@ from django.forms.models import model_to_dict
 from django.db import models
 from django.utils import timezone
 
+class JournalUser(models.Model):
+    sugar_id = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.sugar_id
+
 class JournalEntry(models.Model):
+    owner = models.ForeignKey(JournalUser)
     shared_date = models.DateTimeField('date published')
     title = models.CharField(max_length=100)
     desc = models.CharField(max_length=200)
@@ -17,7 +24,7 @@ class JournalEntry(models.Model):
 
     def to_dict(self):
         e = model_to_dict(self)
-        e['screenshot'] = '/entries/%d/screenshot' % (self.id)
+        e.pop('screenshot')
         e['shared_date'] = str(self.shared_date)
         return e
 
