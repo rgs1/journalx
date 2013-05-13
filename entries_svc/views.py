@@ -11,6 +11,8 @@ SUGAR_BUDDY_HEADER = 'HTTP_X_SUGAR_BUDDY'
 
 def _get_user_from_request(request):
     sugar_id = request.META.get(SUGAR_BUDDY_HEADER, None)
+    if sugar_id is None:
+        return None
     return _get_or_create_user(sugar_id)
 
 def _get_or_create_user(sugar_id):
@@ -51,15 +53,17 @@ def _get_comment(e, comment_id):
 @csrf_exempt
 def index(request):
     user = _get_user_from_request(request)
+    if user is None:
+        return _bad_response('User not found')
 
     if request.POST:
         form = EntryForm(request.POST, request.FILES)
         if form.is_valid():
             req_params = request.REQUEST
             screenshot = form.cleaned_data['screenshot']
-            e = u.journalentry_set.create(title=req_params['title'],
-                                          desc=req_params['desc'],
-                                          screenshot=screenshot)
+            e = user.journalentry_set.create(title=req_params['title'],
+                                             desc=req_params['desc'],
+                                             screenshot=screenshot)
             e.save()
             return _json_response(e.to_dict())
         else:
@@ -71,6 +75,9 @@ def index(request):
 @csrf_exempt
 def comments_index(request, entry_id):
     user = _get_user_from_request(request)
+    if user is None:
+        return _bad_response('User not found')
+
     e = _get_entry(user, entry_id)
     if e is None:
         return _bad_response('Entry not found')
@@ -85,6 +92,8 @@ def comments_index(request, entry_id):
 @csrf_exempt
 def comment(request, entry_id, comment_id):
     user = _get_user_from_request(request)
+    if user is None:
+        return _bad_response('User not found')
 
     if request.method != 'DELETE':
         return _bad_response('Bad request')
@@ -104,6 +113,8 @@ def comment(request, entry_id, comment_id):
 @csrf_exempt
 def entry(request, entry_id):
     user = _get_user_from_request(request)
+    if user is None:
+        return _bad_response('User not found')
 
     e = _get_entry(user, entry_id)
     if e is None:
@@ -129,6 +140,8 @@ def entry(request, entry_id):
 
 def screenshot(request, entry_id):
     user = _get_user_from_request(request)
+    if user is None:
+        return _bad_response('User not found')
 
     try:
         e = _get_entry(user, entry_id)
