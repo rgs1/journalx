@@ -1,2 +1,4 @@
 *.pyc
+*~
 media/screenshots/*.jpg
+media/screenshots/*.png
