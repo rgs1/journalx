@@ -111,3 +111,20 @@ Authentication happens through the X-Sugar-Buddy HTTP header.
     -H 'X-Sugar-Buddy: walter' \
     -X DELETE \
     http://localhost:8000/entries/2/comments/1
+
+
+== Deploying with Apache ==
+
+1) setup Apache with mod_wsgi
+
+2) edit apache/django.wsgi
+
+3) add a VirtualHost config file with (something like):
+
+  <VirtualHost *:80>
+        ServerName journalx.domain.tld
+        UseCanonicalName        Off
+        WSGIScriptAlias / /path/to/journalx/apache/django.wsgi
+        CustomLog /var/log/apache2/journalx-access.log
+        ErrorLog /var/log/apache2/journalx-error.log
+  </VirtualHost>
